@@ -29,8 +29,8 @@ resources:
 - argocd/instances/ibm-cpd-instance.yaml
 
 # CPD Services
-- argocd/operators/ibm-cpd-ws-operator.yaml
-- argocd/instances/ibm-cpd-ws-instance.yaml
+#- argocd/operators/ibm-cpd-ws-operator.yaml
+#- argocd/instances/ibm-cpd-ws-instance.yaml
 
 
 # Pre-req for Cloud Pak for Data
@@ -72,43 +72,3 @@ resources:
 #- argocd/operators/kiali.yaml
 #- argocd/operators/openshift-service-mesh.yaml
 #- argocd/instances/openshift-service-mesh-instance.yaml
-
-patches:
-- target:
-    group: argoproj.io
-    kind: Application
-    labelSelector: "gitops.tier.layer=services,gitops.tier.source=git"
-  patch: |-
-    - op: add
-      path: /spec/source/repoURL
-      value: https://github.com/tutorial-org-123/multi-tenancy-gitops-services.git
-    - op: add
-      path: /spec/source/targetRevision
-      value: master
-- target:
-    group: argoproj.io
-    kind: Application
-    labelSelector: "gitops.tier.layer=applications,gitops.tier.source=git"
-  patch: |-
-    - op: add
-      path: /spec/source/repoURL
-      value: https://github.com/tutorial-org-123/multi-tenancy-gitops-apps.git
-    - op: add
-      path: /spec/source/targetRevision
-      value: master
-- target:
-    group: argoproj.io
-    kind: Application
-    labelSelector: "gitops.tier.layer=services,gitops.tier.source=helm"
-  patch: |-
-    - op: add
-      path: /spec/source/repoURL
-      value: https://charts.cloudnativetoolkit.dev
-- target:
-    name: ibm-automation-foundation-operator
-  patch: |-
-    - op: add
-      path: /spec/source/helm/parameters/-
-      value:
-        name: spec.channel
-        value: v1.1

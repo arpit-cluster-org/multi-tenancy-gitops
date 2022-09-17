@@ -1,0 +1,24 @@
+apiVersion: local.storage.openshift.io/v1
+kind: LocalVolume
+metadata:
+  name: local-block
+  namespace: openshift-local-storage
+spec:
+  logLevel: Normal
+  managementState: Managed
+  nodeSelector:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: cluster.ocs.openshift.io/openshift-storage
+            operator: In
+            values:
+              - ''
+  storageClassDevices:
+    - devicePaths:
+        - '/dev/disk/by-path/pci-0000:00:11.0'
+      storageClassName: localblock
+      volumeMode: Block
+    - devicePaths:
+        - '/dev/disk/by-path/pci-0000:00:12.0'
+      storageClassName: localfile
+      volumeMode: Filesystem

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: "2022-09-17T15:19:30Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    app: rook-ceph-mon
+    app.kubernetes.io/component: cephclusters.ceph.rook.io
+    app.kubernetes.io/created-by: rook-ceph-operator
+    app.kubernetes.io/instance: c
+    app.kubernetes.io/managed-by: rook-ceph-operator
+    app.kubernetes.io/name: ceph-mon
+    app.kubernetes.io/part-of: ocs-storagecluster-cephcluster
+    ceph-version: 16.2.8-84
+    ceph_daemon_id: c
+    ceph_daemon_type: mon
+    mon: c
+    mon_canary: "true"
+    mon_cluster: openshift-storage
+    pvc_name: rook-ceph-mon-c
+    pvc_size: 50Gi
+    rook-version: v4.11.1-0.7130fa4828d1db90406632d66be0a2a22daf7891
+    rook.io/operator-namespace: openshift-storage
+    rook_cluster: openshift-storage
+  name: rook-ceph-mon-c
+  namespace: openshift-storage
+  ownerReferences:
+  - apiVersion: ceph.rook.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: CephCluster
+    name: ocs-storagecluster-cephcluster
+    uid: 50e82814-a68d-46c7-9bc1-89dd93013279
+  resourceVersion: "97931"
+  uid: 3ed14311-fff4-481b-a658-bf711b7c4bd4
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: localfile
+  volumeMode: Filesystem
+status:
+  phase: Pending

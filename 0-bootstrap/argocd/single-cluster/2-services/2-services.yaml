@@ -93,7 +93,7 @@ spec:
   source:
     path: 0-bootstrap/argocd/single-cluster/2-services
     repoURL: https://github.com/arpitn2020/gitops.git
-    targetRevision: kustomize
+    targetRevision: main
   syncPolicy:
     automated:
       prune: true

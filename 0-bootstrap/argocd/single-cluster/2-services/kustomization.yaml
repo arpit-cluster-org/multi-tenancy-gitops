@@ -72,3 +72,43 @@ resources:
 #- argocd/operators/kiali.yaml
 #- argocd/operators/openshift-service-mesh.yaml
 #- argocd/instances/openshift-service-mesh-instance.yaml
+
+patches:
+- target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: "gitops.tier.layer=services,gitops.tier.source=git"
+  patch: |-
+    - op: add
+      path: /spec/source/repoURL
+      value: ${GIT_BASEURL}/${GIT_ORG}/${GIT_GITOPS_SERVICES}
+    - op: add
+      path: /spec/source/targetRevision
+      value: ${GIT_GITOPS_SERVICES_BRANCH}
+- target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: "gitops.tier.layer=applications,gitops.tier.source=git"
+  patch: |-
+    - op: add
+      path: /spec/source/repoURL
+      value: ${GIT_BASEURL}/${GIT_ORG}/${GIT_GITOPS_APPLICATIONS}
+    - op: add
+      path: /spec/source/targetRevision
+      value: ${GIT_GITOPS_APPLICATIONS_BRANCH}
+- target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: "gitops.tier.layer=services,gitops.tier.source=helm"
+  patch: |-
+    - op: add
+      path: /spec/source/repoURL
+      value: ${HELM_REPOURL}
+- target:
+    name: ibm-automation-foundation-operator
+  patch: |-
+    - op: add
+      path: /spec/source/helm/parameters/-
+      value:
+        name: spec.channel
+        value: v1.1

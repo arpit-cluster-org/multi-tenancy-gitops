@@ -16,7 +16,6 @@ resources:
 #- argocd/refarch-infraconfig.yaml
 #- argocd/refarch-machinesets.yaml
 #- argocd/storageclass-cp4a.yaml
-- argocd/scc-wkc-iis.yaml
 patches:
 - target:
     group: argoproj.io

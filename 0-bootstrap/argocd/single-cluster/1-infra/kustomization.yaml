@@ -17,6 +17,15 @@ resources:
 #- argocd/refarch-machinesets.yaml
 #- argocd/storageclass-cp4a.yaml
 
-
-
-
+patches:
+- target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: "gitops.tier.layer=infra
+  patch: |-
+    - op: add
+      path: /spec/source/repoURL
+      value: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-infra.git
+    - op: add
+      path: /spec/source/targetRevision
+      value: master

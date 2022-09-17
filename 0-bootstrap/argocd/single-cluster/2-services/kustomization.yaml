@@ -105,7 +105,7 @@ patches:
       path: /spec/source/repoURL
       value: https://charts.cloudnativetoolkit.dev
 - target:
-    chart: ibm-automation-foundation-operator
+    name: ibm-automation-foundation-operator
   patch: |-
     - op: add
       path: /spec/source/helm/parameters/-

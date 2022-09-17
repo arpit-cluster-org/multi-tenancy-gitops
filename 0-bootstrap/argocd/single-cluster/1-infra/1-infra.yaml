@@ -5,7 +5,7 @@ metadata:
   name: infra
 spec:
   sourceRepos:
-  - https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-cp4d.git
+  - https://github.com/arpitn2020/gitops.git
   - https://github.com/cloud-native-toolkit/multi-tenancy-gitops-infra.git
   destinations:
   - namespace: cloudpak
@@ -29,7 +29,7 @@ spec:
   - namespace: instana-agent
     server: https://kubernetes.default.svc
   - namespace: ibm-common-services
-    server: https://kubernetes.default.svc    
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ""
     kind: Namespace
@@ -65,7 +65,7 @@ spec:
   project: default
   source:
     path: 0-bootstrap/argocd/single-cluster/1-infra
-    repoURL: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-cp4d.git
+    repoURL: https://github.com/arpitn2020/gitops.git
     targetRevision: kustomize
   syncPolicy:
     automated:

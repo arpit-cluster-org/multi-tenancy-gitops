@@ -29,4 +29,4 @@ patches:
       value: https://github.com/arpit-cluster-org/multi-tenancy-gitops-infra.git
     - op: add
       path: /spec/source/targetRevision
-      value: master
+      value: main

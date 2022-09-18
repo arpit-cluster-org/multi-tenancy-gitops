@@ -12,8 +12,8 @@ set -u
 GIT_REPO=${GIT_REPO:-multi-tenancy-gitops.git}
 GIT_BASEURL=${GIT_BASEURL:-https://github.com}
 GIT_HOST=${GIT_HOST:-github.com}
-GIT_BRANCH=${GIT_BRANCH:-master}
-GIT_FROM_BRANCH=${GIT_FROM_BRANCH:-master}
+GIT_BRANCH=${GIT_BRANCH:-main}
+GIT_FROM_BRANCH=${GIT_FROM_BRANCH:-main}
 
 
 echo "Setting source git to ${GIT_BASEURL}/${GIT_USER}/${GIT_REPO}"

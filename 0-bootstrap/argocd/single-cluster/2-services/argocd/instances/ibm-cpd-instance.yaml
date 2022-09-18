@@ -14,7 +14,6 @@ spec:
   destination:
     namespace: cloudpak
     server: 'https://kubernetes.default.svc'
-  project: ibm-cpd-platform-instance
   source:
     chart: ibm-cpd-platform-instance
     repoURL: "https://github.com/cloud-native-toolkit/toolkit-charts.git" # Populated by kustomize patches in 2-services/kustomization.yaml

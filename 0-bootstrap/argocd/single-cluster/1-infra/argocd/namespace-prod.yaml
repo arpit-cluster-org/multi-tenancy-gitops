@@ -2,6 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: namespace-prod
+  labels:
+    gitops.tier.layer: infra
   annotations:
     argocd.argoproj.io/sync-wave: "100"
 spec:
@@ -11,8 +13,6 @@ spec:
   project: infra
   source:
     path: namespaces/prod
-    repoURL: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-infra.git
-    targetRevision: master
   syncPolicy:
     automated:
       prune: true

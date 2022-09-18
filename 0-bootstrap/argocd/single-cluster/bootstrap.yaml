@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     path: 0-bootstrap/argocd/single-cluster
-    repoURL: https://github.com/arpitn2020/gitops.git
+    repoURL: https://github.com/arpit-cluster-org/multi-tenancy-gitops.git
     targetRevision: main
   syncPolicy:
     automated:

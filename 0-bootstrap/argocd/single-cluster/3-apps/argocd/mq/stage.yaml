@@ -4,17 +4,17 @@ metadata:
   name: apps-mq-stage
   annotations:
     argocd.argoproj.io/sync-wave: "300"
+  labels:
+    gitops.tier.layer: applications
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: staging
+    namespace: openshift-gitops
     server: https://kubernetes.default.svc
   project: applications
   source:
-    path: mq/environments/stage/overlays
-    repoURL: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-apps.git
-    targetRevision: master
+    path: mq/config/argocd/staging
   syncPolicy:
     automated:
       prune: true

@@ -4,17 +4,17 @@ metadata:
   name: apps-ace-ci
   annotations:
     argocd.argoproj.io/sync-wave: "300"
+  labels:
+    gitops.tier.layer: applications
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: ci
+    namespace: openshift-gitops
     server: https://kubernetes.default.svc
   project: applications
-  source:
-    path: ace/config/cicd/overlays
-    repoURL: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-apps.git
-    targetRevision: master
+  source: # repoURL  and targetRevision populated by kustomize patches in 3-apps/kustomization.yaml
+    path: ace/config/argocd/ci
   syncPolicy:
     automated:
       prune: true

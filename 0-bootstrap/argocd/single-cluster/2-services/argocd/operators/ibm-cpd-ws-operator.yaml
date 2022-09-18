@@ -37,5 +37,3 @@ spec:
         value: ibm-operator-catalog
       - name: spec.sourceNamespace
         value: openshift-marketplace
-      - name: spec.storageClass
-        value: "managed-nfs-storage"

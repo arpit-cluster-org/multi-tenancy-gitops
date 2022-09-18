@@ -6,17 +6,29 @@ metadata:
     argocd.argoproj.io/sync-wave: "250"
   labels:
     gitops.tier.group: ibm-cloudpak
+    gitops.tier.layer: services
+    gitops.tier.source: helm
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: cloudpak
+    namespace: tools
     server: 'https://kubernetes.default.svc'
   project: services
   source:
-    path: shared/config/cp4d/ibmcpd
-    repoURL: https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
-    targetRevision: master
+    chart: ibm-cpd-platform-instance
+    repoURL: "" # Populated by kustomize patches in 2-services/kustomization.yaml
+    targetRevision: 0.1.2
+    helm:
+      parameters:
+      - name: metadata.name
+        value: "ibmcpd-cr"
+      - name: spec.license.accept
+        value: "true"
+      - name: spec.license.license
+        value: "Enterprise"
+      - name: spec.storageClass
+        value: "managed-nfs-storage"
   syncPolicy:
     automated:
       prune: true

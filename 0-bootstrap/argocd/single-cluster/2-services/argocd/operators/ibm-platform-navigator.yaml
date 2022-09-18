@@ -6,17 +6,17 @@ metadata:
     argocd.argoproj.io/sync-wave: "220"
   labels:
     gitops.tier.group: ibm-cloudpak
+    gitops.tier.layer: services
+    gitops.tier.source: git
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: cloudpak
+    namespace: openshift-operators
     server: 'https://kubernetes.default.svc'
   project: services
   source:
     path: operators/ibm-platform-navigator
-    repoURL: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-services.git
-    targetRevision: master
     helm:
       values: |
         ibm-platform-navigator:
@@ -24,11 +24,11 @@ spec:
             platformnavigator:
               name: ibm-platform-navigator
               subscription:
-                channel: v5.0
+                channel: v5.3
                 installPlanApproval: Automatic
                 name: ibm-integration-platform-navigator
                 source: ibm-operator-catalog
-                sourceNamespace: openshift-marketplace          
+                sourceNamespace: openshift-marketplace
   syncPolicy:
     automated:
       prune: true

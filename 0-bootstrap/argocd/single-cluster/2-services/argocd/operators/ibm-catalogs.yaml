@@ -6,6 +6,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "200"
   labels:
     gitops.tier.group: ibm-cloudpak
+    gitops.tier.layer: services
+    gitops.tier.source: git
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -15,8 +17,6 @@ spec:
   project: services
   source:
     path: operators/ibm-catalogs
-    repoURL: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-services.git
-    targetRevision: master
     helm:
       values: |
         ibm-catalogs:
@@ -27,7 +27,7 @@ spec:
                 displayName: IBMCS Operators
                 publisher: IBM
                 sourceType: grpc
-                image: docker.io/ibmcom/ibm-common-service-catalog:latest
+                image: icr.io/cpopen/ibm-common-service-catalog:latest
                 updateStrategy:
                   registryPoll:
                     interval: 45m
@@ -38,11 +38,46 @@ spec:
                 displayName: "IBM Operator Catalog"
                 publisher: IBM
                 sourceType: grpc
-                image: docker.io/ibmcom/ibm-operator-catalog
+                image: icr.io/cpopen/ibm-operator-catalog:latest
                 updateStrategy:
                   registryPoll:
-                    interval: 45m          
+                    interval: 45m
+
+            automationfoundation:
+              name: iaf-core-operators
+              catalog:
+                displayName: IAF Core Operators
+                publisher: IBM
+                sourceType: grpc
+                image: icr.io/cpopen/ibm-automation-foundation-core-catalog
+                updateStrategy:
+                  registryPoll:
+                    interval: 45m
+
+            processmining:
+              name: ibm-automation-processminings
+              catalog:
+                displayName: IBM ProcessMining Operators
+                publisher: IBM
+                sourceType: grpc
+                image: icr.io/cpopen/processmining-operator-catalog:1.1.0
+                updateStrategy:
+                  registryPoll:
+                    interval: 45m
+            db2u:
+              name: ibm-db2uoperator-catalog
+              catalog:
+                displayName: IBM Db2U Catalog
+                publisher: IBM
+                sourceType: grpc
+                image: icr.io/cpopen/ibm-db2uoperator-catalog@sha256:99f725098b801474ff77e880ca235023452116e4b005e49de613496a1917f719
+                updateStrategy:
+                  registryPoll:
+                    interval: 45m
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+  
+  
+  

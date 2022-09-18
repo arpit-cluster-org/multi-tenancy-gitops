@@ -2,6 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: storage
+  labels:
+    gitops.tier.layer: infra
   annotations:
     argocd.argoproj.io/sync-wave: "110"
   finalizers:
@@ -13,15 +15,15 @@ spec:
   project: infra
   source:
     path: storage
-    repoURL: github.com/cloud-native-toolkit/multi-tenancy-gitops-infra.git
-    targetRevision: master
     helm:
       values: |
-        ocs-operator:
-          ocs:
-            channel: stable-4.6
-            sizeGiB: 512
-            storageClass: gp2
+        ${STORAGE_CHART_NAME}:
+          channel: ${CHANNEL}
+          sizeGiB: 512
+          storageClass: ${STORCLASS}
+          argo:
+            namespace: ${GIT_GITOPS_NAMESPACE}
+            serviceAccount: openshift-gitops-cntk-argocd-application-controller
   syncPolicy:
     automated:
       prune: true

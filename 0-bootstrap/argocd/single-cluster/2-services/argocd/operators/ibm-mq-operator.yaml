@@ -6,17 +6,17 @@ metadata:
     argocd.argoproj.io/sync-wave: "230"
   labels:
     gitops.tier.group: ibm-cloudpak
+    gitops.tier.layer: services
+    gitops.tier.source: git
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: cloudpak
+    namespace: openshift-operators
     server: 'https://kubernetes.default.svc'
   project: services
   source:
     path: operators/ibm-mq-operator
-    repoURL: https://github.com/cloud-native-toolkit/multi-tenancy-gitops-services.git
-    targetRevision: master
     helm:
       values: |
         ibm-mq-operator:
@@ -24,11 +24,11 @@ spec:
             ibmmq:
               name: ibm-mq
               subscription:
-                channel: v1.4
+                channel: v1.6
                 installPlanApproval: Automatic
                 name: ibm-mq
                 source: ibm-operator-catalog
-                sourceNamespace: openshift-marketplace          
+                sourceNamespace: openshift-marketplace
   syncPolicy:
     automated:
       prune: true

@@ -2,28 +2,28 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: infraconfig
+  labels:
+    gitops.tier.layer: infra
   annotations:
     argocd.argoproj.io/sync-wave: "102"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: tools
+    namespace: openshift-gitops
     server: https://kubernetes.default.svc
   project: infra
   source:
     path: infraconfig
-    repoURL: github.com/cloud-native-toolkit/multi-tenancy-gitops-infra.git
-    targetRevision: master
     helm:
       values: |
         refarch-infraconfig:
           cloudProvider:
-            name: "aws" # set to aws or vsphere,
-            managed: "false" # set to true for ARO or ROSA
+            name: "${PLATFORM}" # set to aws or vsphere,
+            managed: "${MANAGED}" # set to true for ARO or ROSA
           argo:
-            namespace: openshift-gitops
-            serviceAccount: argocd-cluster-argocd-application-controller
+            namespace: ${GIT_GITOPS_NAMESPACE}
+            serviceAccount: openshift-gitops-cntk-argocd-application-controller
           registry:
             storageClassName: ocs-storagecluster-cephfs
             replicas: 2
@@ -42,3 +42,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
+

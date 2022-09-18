@@ -3,18 +3,16 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   name: services
+  labels:
+    gitops.tier.layer: services
 spec:
-  sourceRepos:
-  - https://github.com/arpitn2020/gitops.git
-  - https://github.com/cloud-native-toolkit-demos/multi-tenancy-gitops-apps.git
-  # Do not change the below repository URL
-  - https://github.com/cloud-native-toolkit/multi-tenancy-gitops-services.git
+  sourceRepos: [] # Populated by kustomize patches in 2-services/kustomization.yaml
   destinations:
-  - namespace: cloudpak
-    server: https://kubernetes.default.svc
-  - namespace: openshift-gitops
-    server: https://kubernetes.default.svc
   - namespace: tools
+    server: https://kubernetes.default.svc
+  - namespace: ibm-common-services
+    server: https://kubernetes.default.svc
+  - namespace: cloudpak
     server: https://kubernetes.default.svc
   - namespace: redhat-operators
     server: https://kubernetes.default.svc
@@ -38,7 +36,29 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: instana-agent
     server: https://kubernetes.default.svc
-  - namespace: ibm-common-services
+  - namespace: openshift-gitops
+    server: https://kubernetes.default.svc
+  - namespace: openshift-serverless
+    server: https://kubernetes.default.svc
+  - namespace: spp
+    server: https://kubernetes.default.svc
+  - namespace: knative-serving
+    server: https://kubernetes.default.svc
+  - namespace: spp-velero
+    server: https://kubernetes.default.svc
+  - namespace: baas
+    server: https://kubernetes.default.svc
+  - namespace: robot-shop
+    server: https://kubernetes.default.svc
+  - namespace: db2
+    server: https://kubernetes.default.svc
+  - namespace: mq
+    server: https://kubernetes.default.svc
+  - namespace: pem
+    server: https://kubernetes.default.svc
+  - namespace: b2bi-prod
+    server: https://kubernetes.default.svc
+  - namespace: b2bi-nonprod
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   # TODO: SCC needs to be moved to 1-infra, here for now for artifactory
@@ -70,6 +90,10 @@ spec:
     kind: ClusterRoleBinding
   - group: "rbac.authorization.k8s.io"
     kind: ClusterRole
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+  - group: ""
+    kind: PersistentVolume
   roles:
   # A role which provides read-only access to all applications in the project
   - name: read-only
@@ -85,15 +109,15 @@ metadata:
   name: services
   annotations:
     argocd.argoproj.io/sync-wave: "200"
+  labels:
+    gitops.tier.layer: gitops
 spec:
   destination:
     namespace: openshift-gitops
     server: https://kubernetes.default.svc
-  project: default
-  source:
-    path: 0-bootstrap/argocd/single-cluster/2-services
-    repoURL: https://github.com/arpitn2020/gitops.git
-    targetRevision: main
+  project: services
+  source: # repoURL  and targetRevision populated by kustomize patches in 2-services/kustomization.yaml
+    path: 0-bootstrap/single-cluster/2-services
   syncPolicy:
     automated:
       prune: true

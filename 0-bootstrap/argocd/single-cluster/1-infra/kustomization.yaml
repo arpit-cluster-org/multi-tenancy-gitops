@@ -16,6 +16,8 @@ resources:
 #- argocd/refarch-infraconfig.yaml
 #- argocd/refarch-machinesets.yaml
 #- argocd/storageclass-cp4a.yaml
+- argocd/scc-wkc-iis.yaml
+- argocd/serviceaccounts-tools.yaml
 patches:
 - target:
     group: argoproj.io
@@ -24,7 +26,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/source/repoURL
-      value: https://github.com/tutorial-org-123/multi-tenancy-gitops-infra.git
+      value: https://github.com/arpit-cluster-org/multi-tenancy-gitops-infra.git
     - op: add
       path: /spec/source/targetRevision
       value: master

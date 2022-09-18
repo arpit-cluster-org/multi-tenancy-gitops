@@ -6,11 +6,11 @@ resources:
 #- argocd/namespace-dev.yaml
 #- argocd/namespace-staging.yaml
 #- argocd/namespace-prod.yaml
-#- argocd/namespace-cloudpak.yaml
+- argocd/namespace-cloudpak.yaml
 #- argocd/namespace-istio-system.yaml
 #- argocd/namespace-openldap.yaml
 - argocd/namespace-sealed-secrets.yaml
-- argocd/namespace-tools.yaml
+#- argocd/namespace-tools.yaml
 #- argocd/namespace-instana-agent.yaml
 #- argocd/namespace-robot-shop.yaml
 #- argocd/namespace-openshift-serverless.yaml
@@ -27,7 +27,7 @@ resources:
 #- argocd/namespace-b2bi-nonprod.yaml
 #- argocd/namespace-pem.yaml
 #- argocd/serviceaccounts-ibm-common-services.yaml
-- argocd/serviceaccounts-tools.yaml
+#- argocd/serviceaccounts-tools.yaml
 #- argocd/serviceaccounts-db2.yaml
 #- argocd/serviceaccounts-mq.yaml
 #- argocd/serviceaccounts-b2bi-prod.yaml
@@ -49,7 +49,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/source/repoURL
-      value: ${GIT_BASEURL}/${GIT_ORG}/${GIT_GITOPS_INFRA}
+      value: https://github.com/arpit-cluster-org/multi-tenancy-gitops-infra.git
     - op: add
       path: /spec/source/targetRevision
-      value: ${GIT_GITOPS_INFRA_BRANCH}
+      value: main

@@ -10,7 +10,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: tools
+    namespace: cloudpak
     server: 'https://kubernetes.default.svc'
   project: services
   source:
@@ -67,7 +67,7 @@ spec:
 
         argocd-hook-job:
           name: artifactory-postsync
-          namespace: tools
+          namespace: cloudpak
           hook:
             enabled: true
             hooktype: PostSync
@@ -97,7 +97,7 @@ spec:
             args:
               - "-c"
               - |
-                URL=https://$(kubectl get route artifactory -n tools -o jsonpath='{.spec.host}')
+                URL=https://$(kubectl get route artifactory -n cloudpak -o jsonpath='{.spec.host}')
                 if [[ -z "$(kubectl get configmap artifactory-config)" ]]; then
                   kubectl create configmap artifactory-config --from-literal=ARTIFACTORY_URL=${URL}
                 fi

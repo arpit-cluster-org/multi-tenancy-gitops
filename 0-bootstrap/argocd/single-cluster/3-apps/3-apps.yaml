@@ -16,8 +16,6 @@ spec:
     server: https://kubernetes.default.svc
   - namespace: prod
     server: https://kubernetes.default.svc
-  - namespace: tools
-    server: https://kubernetes.default.svc
   - namespace: ibm-common-services
     server: https://kubernetes.default.svc
   - namespace: cloudpak

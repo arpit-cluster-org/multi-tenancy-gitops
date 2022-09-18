@@ -16,7 +16,7 @@ rm sealed-secrets-ibm-demo-key.yaml
 
 For Cloud Pak to consume the entitlement key, restart the Platform Navigator pods
 ```
-oc delete pod -n tools -l app.kubernetes.io/name=ibm-integration-platform-navigator
+oc delete pod -n cloudpak -l app.kubernetes.io/name=ibm-integration-platform-navigator
 ```
 
 
